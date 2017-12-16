@@ -1,6 +1,7 @@
 ﻿using SimuladorMaquinaTuring.Modelo2;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -30,8 +31,10 @@ namespace SimuladorMaquinaTuring
                     var maquinaDeTuring = new MaquinaDeTuring(
                             "q0",
                             new Cabezal(txtInput.Text.ToCharArray(), 0),
-                            MaquinaDeTuringUtilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
-                            int.Parse(txtIntervalo.Text));
+                            Utilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
+                            int.Parse(txtIntervalo.Text),
+                            0,
+                            0);
 
                     Loop(maquinaDeTuring);
                 } else {
@@ -49,7 +52,11 @@ namespace SimuladorMaquinaTuring
             while (!maquinaDeTuring.EstadoActual.Contains("accept") && !maquinaDeTuring.EstadoActual.Contains("reject"))
             {
                 maquinaDeTuring = maquinaDeTuring.Step();
+                dgvTablaTransiciones.Rows[maquinaDeTuring.RowIndexAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
+                dgvTablaTransiciones.Rows[maquinaDeTuring.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                dgvTablaTransiciones.Update();
                 Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
+
             }
 
             Done(maquinaDeTuring);
@@ -76,7 +83,7 @@ namespace SimuladorMaquinaTuring
                 switch (cmbCargarPruebas.SelectedIndex)
                 {
                     case 0:
-                        dgvTablaTransiciones.DataSource = TransicionesDeEjemplo.Contiene101();
+                        dgvTablaTransiciones.DataSource = TransicionesEjemplo.Contiene101();
                         break;
                     default:
                         MessageBox.Show("Ocurrió un problema: no se encontró la tabla de transición.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -4,26 +4,26 @@ using System.Windows.Forms;
 
 namespace SimuladorMaquinaTuring.Modelo2
 {
-    public static class TransicionesDeEjemplo
+    public static class TransicionesEjemplo
     {
         public static IEnumerable<Transicion> Contiene101()
         {
             return new[]
             {
-                new Transicion("q0", '0', '0', Direccion.Derecha, "q0"),
-                new Transicion("q0", '_', '_', Direccion.Derecha, "qreject"),
-                new Transicion("q0", '1', '1', Direccion.Derecha, "q1"),
-                new Transicion("q1", '0', '0', Direccion.Derecha, "q2"),
-                new Transicion("q1", '_', '_', Direccion.Derecha, "qreject"),
-                new Transicion("q1", '1', '1', Direccion.Derecha, "q1"),
-                new Transicion("q2", '0', '0', Direccion.Derecha, "q0"),
-                new Transicion("q2", '_', '_', Direccion.Derecha, "qreject"),
-                new Transicion("q2", '1', '1', Direccion.Derecha, "qaccept"),
+                new Transicion("q0", '0', '0', Direccion.Derecha, "q0", 0),
+                new Transicion("q0", '_', '_', Direccion.Derecha, "qreject", 0),
+                new Transicion("q0", '1', '1', Direccion.Derecha, "q1", 0),
+                new Transicion("q1", '0', '0', Direccion.Derecha, "q2", 0),
+                new Transicion("q1", '_', '_', Direccion.Derecha, "qreject", 0),
+                new Transicion("q1", '1', '1', Direccion.Derecha, "q1", 0),
+                new Transicion("q2", '0', '0', Direccion.Derecha, "q0", 0),
+                new Transicion("q2", '_', '_', Direccion.Derecha, "qreject", 0),
+                new Transicion("q2", '1', '1', Direccion.Derecha, "qaccept", 0),
             };
         }
     }
 
-    public class MaquinaDeTuringUtilidades
+    public class Utilidades
     {
         public static IEnumerable<Transicion> GenerarTablaDeTransiciones(DataGridView dataGridView)
         {
@@ -85,7 +85,8 @@ namespace SimuladorMaquinaTuring.Modelo2
                     char.Parse(dataGridViewRow.Cells[1].Value.ToString()),
                     char.Parse(dataGridViewRow.Cells[2].Value.ToString()),
                     dataGridViewRow.Cells[3].Value.ToString().Equals("R") ? Direccion.Derecha : Direccion.Izquierda,
-                    dataGridViewRow.Cells[4].Value.ToString());
+                    dataGridViewRow.Cells[4].Value.ToString(),
+                    dataGridViewRow.Index);
             }
             catch (Exception)
             {
