@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace SimuladorMaquinaTuring.Modelo2
+namespace SimuladorMaquinaTuring.Modelo
 {
     public class Cabezal
     {
-        public IEnumerable<char> CintaAProcesar { get; set; }
+        public List<char> CintaAProcesar { get; set; }
         public int PosicionDelCabezal { get; set; }
+        public int PosicionDelCabezalAnterior { get; set; }
 
-        public Cabezal(IEnumerable<char> cintaAProcesar, int posicionDelCabezal)
+        public Cabezal(List<char> cintaAProcesar, int posicionDelCabezal)
         {
+            if(cintaAProcesar.Count() == 0)
+                throw new ArgumentException("Ingrese un input válido.");
+
             if (posicionDelCabezal > cintaAProcesar.Count() - 1 || posicionDelCabezal < 0)
                 throw new ArgumentException("Posición del cabezal fuera de rango.");
 
             CintaAProcesar = cintaAProcesar;
             PosicionDelCabezal = posicionDelCabezal;
-        }
-
-
-        public Cabezal Escribir(char caracterAEscribir)
-        {      
-            var cintaAProcesar = new List<char>(CintaAProcesar);
-            cintaAProcesar[PosicionDelCabezal] = caracterAEscribir;
-            return new Cabezal(cintaAProcesar, PosicionDelCabezal);
+            PosicionDelCabezalAnterior = posicionDelCabezal;
         }
 
         public char Leer()
@@ -30,30 +27,37 @@ namespace SimuladorMaquinaTuring.Modelo2
             return CintaAProcesar.ElementAt(PosicionDelCabezal);
         }
 
-        public Cabezal MoveLeft()
+        public void Escribir(char caracterAEscribir)
         {
-            return PosicionDelCabezal == 0
-                ? new Cabezal(new[] { '_' }.Concat(CintaAProcesar), 0)
-                : new Cabezal(CintaAProcesar, PosicionDelCabezal - 1);
+            CintaAProcesar[PosicionDelCabezal] = caracterAEscribir;
         }
 
-        public Cabezal MoveRight()
+        public void MoverseALaIzquierda()
         {
-            return PosicionDelCabezal == CintaAProcesar.Count() - 1
-                ? new Cabezal(CintaAProcesar.Concat(new[] { '_' }), PosicionDelCabezal + 1)
-                : new Cabezal(CintaAProcesar, PosicionDelCabezal + 1);
+            if (PosicionDelCabezal == -1) throw new ArgumentException("¡asd!");
+            PosicionDelCabezalAnterior = PosicionDelCabezal;
+            PosicionDelCabezal = PosicionDelCabezal - 1;
         }
 
-        public Cabezal Move(Direccion direccion)
+        public void MoverseALaDerecha()
+        {
+            if (PosicionDelCabezal == CintaAProcesar.Count() - 1) throw new ArgumentException("¡asd!");
+            PosicionDelCabezalAnterior = PosicionDelCabezal;
+            PosicionDelCabezal = PosicionDelCabezal + 1;
+        }
+
+        public void Moverse(Direccion direccion)
         {
             switch (direccion)
             {
                 case Direccion.Izquierda:
-                    return MoveLeft();
+                    MoverseALaIzquierda();
+                    break;
                 case Direccion.NoMoverse:
-                    return this;
+                    break;
                 case Direccion.Derecha:
-                    return MoveRight();
+                    MoverseALaDerecha();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direccion), direccion, null);
             }

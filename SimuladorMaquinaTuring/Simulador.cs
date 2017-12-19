@@ -1,8 +1,7 @@
-﻿using SimuladorMaquinaTuring.Modelo2;
+﻿using SimuladorMaquinaTuring.Modelo;
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -11,34 +10,163 @@ namespace SimuladorMaquinaTuring
     public partial class Simulador : Form
     {
         private MaquinaDeTuring maquinaDeTuring = null;
-        private int RowIndexAnterior = 0;
+
         public Simulador()
         {
             InitializeComponent();
+        }
+
+        private void BtnCorrerPresionado(bool habilitar)
+        {
+            btnCorrer.Enabled = habilitar;
+            btnSiguiente.Enabled = habilitar;
+        }
+
+        private void BtnPausarPresionado(bool habilitar)
+        {
+            btnPausar.Enabled = habilitar;
+        }
+        private void BtnSiguientePresionado()
+        {
+
+        }
+
+        private void btnDetenerPresionado()
+        {
+            btnCorrer.Enabled = true;
+            btnSiguiente.Enabled = true;
+            btnPausar.Enabled = true;
+            btnDetener.Enabled = true;
         }
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(txtIntervalo.Text))
-                {
-                    MessageBox.Show("Ingrese un interválo de tiempo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                Validar();
+
+                BtnCorrerPresionado(false);
 
                 if (maquinaDeTuring == null)
                 {
-                    var maquinaDeTuring = new MaquinaDeTuring(
+                    maquinaDeTuring = new MaquinaDeTuring(
                             "q0",
-                            new Cabezal(txtInput.Text.ToCharArray(), 0),
+                            new Cabezal(new List<char>(rtbEntrada.Text.ToCharArray()), 0),
                             Utilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
-                            int.Parse(txtIntervalo.Text),
+                            int.Parse(txtIntervaloTiempo.Text),
                             0);
+                }
 
-                    Loop(maquinaDeTuring);
-                } else {
-                    Loop(maquinaDeTuring);
+                dgvTablaTransiciones.Rows[maquinaDeTuring.IndiceEnLaTabla].DefaultCellStyle.BackColor = Color.Red;
+                dgvTablaTransiciones.Update();
+
+                rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezal, 1);
+                rtbEntrada.SelectionColor = Color.Red;
+                rtbEntrada.Update();
+
+                maquinaDeTuring.CambiarEstadoACorrer();
+
+                Loop();
+
+            }
+            catch (Exception ex)
+            {
+                BtnCorrerPresionado(true);
+                MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnStep_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Validar();
+
+                if (maquinaDeTuring == null)
+                {
+                    maquinaDeTuring = new MaquinaDeTuring(
+                       "q0",
+                       new Cabezal(new List<char>(rtbEntrada.Text.ToCharArray()), 0),
+                       Utilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
+                       int.Parse(txtIntervaloTiempo.Text),
+                       0);
+                }
+
+                if (maquinaDeTuring.EstadoActual.Contains("accept") || maquinaDeTuring.EstadoActual.Contains("reject"))
+                    MessageBox.Show("Done! " + maquinaDeTuring.EstadoActual);
+                else
+                    maquinaDeTuring = maquinaDeTuring.Step();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Loop()
+        {
+            var thread = new Thread(() =>
+            {
+                while (!maquinaDeTuring.HaFinalizado())
+                {
+                    if (maquinaDeTuring.EstaPausada()) return;
+
+                    maquinaDeTuring = maquinaDeTuring.Step();
+
+                    ResaltarFila("");
+
+                    Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
+                }
+
+                MessageBox.Show("Done! " + maquinaDeTuring.EstadoActual);
+
+            });
+            thread.Start();
+        }
+
+        private void btnPausar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (maquinaDeTuring != null)
+                {
+                    BtnPausarPresionado(false);
+                    maquinaDeTuring.CambiarEstadoAPausa();
+                }
+            }
+            catch (Exception ex)
+            {
+                BtnPausarPresionado(true);
+                MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDetener_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (maquinaDeTuring != null)
+                {
+                    btnDetenerPresionado();
+
+                    maquinaDeTuring = new MaquinaDeTuring(
+                         "q0",
+                         new Cabezal(new List<char>(rtbEntrada.Text.ToCharArray()), 0),
+                         Utilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
+                         int.Parse(txtIntervaloTiempo.Text),
+                         0);
+
+                    foreach (DataGridViewRow dataGridViewRow in dgvTablaTransiciones.Rows)
+                    {
+                        dataGridViewRow.DefaultCellStyle.BackColor = SystemColors.Window;
+                        rtbEntrada.Update();
+                    }
+
+                    rtbEntrada.Select(0, rtbEntrada.Text.Length - 1);
+                    rtbEntrada.SelectionColor = SystemColors.WindowText;
+
+                    dgvTablaTransiciones.Update();
+                    rtbEntrada.Update();
                 }
             }
             catch (Exception ex)
@@ -47,35 +175,39 @@ namespace SimuladorMaquinaTuring
             }
         }
 
-        private void Loop(MaquinaDeTuring maquinaDeTuring)
+        private void Validar()
         {
-            while (!maquinaDeTuring.EstadoActual.Contains("accept") && !maquinaDeTuring.EstadoActual.Contains("reject"))
+            if (string.IsNullOrEmpty(txtIntervaloTiempo.Text))
             {
-                maquinaDeTuring = maquinaDeTuring.Step();
-                dgvTablaTransiciones.Rows[RowIndexAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
-                dgvTablaTransiciones.Rows[maquinaDeTuring.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-                dgvTablaTransiciones.Update();
-                RowIndexAnterior = maquinaDeTuring.RowIndex;
-                Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
-
+                throw new ArgumentException("Ingrese un interválo de tiempo válido.");
             }
 
-            Done(maquinaDeTuring);
+            if (string.IsNullOrEmpty(rtbEntrada.Text))
+            {
+                throw new ArgumentException("Ingrese un input válido.");
+            }
         }
 
-        private void btnStep_Click(object sender, EventArgs e)
+        public void ResaltarFila(string value)
         {
-            if (maquinaDeTuring.EstadoActual.Contains("accept") || maquinaDeTuring.EstadoActual.Contains("reject"))
-                Done(maquinaDeTuring);
-            else
-                maquinaDeTuring = maquinaDeTuring.Step();
-        }
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(ResaltarFila), new object[] { value });
+                return;
+            }
 
-        private void Done(MaquinaDeTuring maquinaDeTuring)
-        {
-            MessageBox.Show("Done! " + maquinaDeTuring.EstadoActual);
-        }
+            rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezalAnterior, 1);
+            rtbEntrada.SelectionColor = SystemColors.WindowText;
 
+            rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezal, 1);
+            rtbEntrada.SelectionColor = Color.Red;
+
+            dgvTablaTransiciones.Rows[maquinaDeTuring.IndiceEnLaTablaAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
+            dgvTablaTransiciones.Rows[maquinaDeTuring.IndiceEnLaTabla].DefaultCellStyle.BackColor = Color.Red;
+
+            rtbEntrada.Update();
+            dgvTablaTransiciones.Update();
+        }
 
         private void cmbCargarPruebas_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -102,7 +234,7 @@ namespace SimuladorMaquinaTuring
             dgvTablaTransiciones.AutoGenerateColumns = false;
         }
 
-        private void txtIntervalo_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtIntervaloTiempo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {

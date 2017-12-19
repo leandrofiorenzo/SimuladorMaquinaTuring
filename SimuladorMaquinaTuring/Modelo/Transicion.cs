@@ -1,4 +1,4 @@
-﻿namespace SimuladorMaquinaTuring.Modelo2
+﻿namespace SimuladorMaquinaTuring.Modelo
 {
     public class Transicion
     {

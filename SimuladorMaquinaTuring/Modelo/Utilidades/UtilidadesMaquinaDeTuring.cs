@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace SimuladorMaquinaTuring.Modelo2
+namespace SimuladorMaquinaTuring.Modelo
 {
     public static class TransicionesEjemplo
     {
