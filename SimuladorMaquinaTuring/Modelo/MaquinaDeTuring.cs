@@ -12,9 +12,8 @@ namespace SimuladorMaquinaTuring.Modelo2
         public Cabezal Cabezal { get; }
         public IEnumerable<Transicion> TablaTransiciones { get; set; }
         public int RowIndex { get; set; }
-        public int RowIndexAnterior { get; set; }
 
-        public MaquinaDeTuring(string estadoActual, Cabezal cabezal, IEnumerable<Transicion> tablaTransiciones, int intervaloDeTiempo, int rowIndex, int rowIndexAnterior)
+        public MaquinaDeTuring(string estadoActual, Cabezal cabezal, IEnumerable<Transicion> tablaTransiciones, int intervaloDeTiempo, int rowIndex)
         {
             if (!estadoActual.Contains("accept") && !estadoActual.Contains("reject") && !tablaTransiciones.Any(t => t.Estado == estadoActual)) 
                     throw new ArgumentException("Ocurrio un problema: el estado inicial no coincide con ningún estado de la tabla de transiciones");           
@@ -24,7 +23,6 @@ namespace SimuladorMaquinaTuring.Modelo2
             TablaTransiciones = tablaTransiciones;
             IntervaloDeTiempo = intervaloDeTiempo;
             RowIndex = rowIndex;
-            RowIndexAnterior = rowIndexAnterior;
         }
 
         public MaquinaDeTuring Step()
@@ -34,7 +32,7 @@ namespace SimuladorMaquinaTuring.Modelo2
             MaquinaDeTuring maquinaDeTuring = TablaTransiciones
                     .Where(t => t.Estado == EstadoActual && t.Leer == Cabezal.Leer())
                     .Select(
-                       t => new MaquinaDeTuring(t.EstadoSiguiente, Cabezal.Escribir(t.Escribir).Move(t.Direccion), TablaTransiciones, IntervaloDeTiempo, t.RowIndex, RowIndex))
+                       t => new MaquinaDeTuring(t.EstadoSiguiente, Cabezal.Escribir(t.Escribir).Move(t.Direccion), TablaTransiciones, IntervaloDeTiempo, t.RowIndex))
                     .First();
 
             return maquinaDeTuring;

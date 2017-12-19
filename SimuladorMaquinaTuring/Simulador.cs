@@ -11,6 +11,7 @@ namespace SimuladorMaquinaTuring
     public partial class Simulador : Form
     {
         private MaquinaDeTuring maquinaDeTuring = null;
+        private int RowIndexAnterior = 0;
         public Simulador()
         {
             InitializeComponent();
@@ -33,7 +34,6 @@ namespace SimuladorMaquinaTuring
                             new Cabezal(txtInput.Text.ToCharArray(), 0),
                             Utilidades.GenerarTablaDeTransiciones(dgvTablaTransiciones),
                             int.Parse(txtIntervalo.Text),
-                            0,
                             0);
 
                     Loop(maquinaDeTuring);
@@ -52,9 +52,10 @@ namespace SimuladorMaquinaTuring
             while (!maquinaDeTuring.EstadoActual.Contains("accept") && !maquinaDeTuring.EstadoActual.Contains("reject"))
             {
                 maquinaDeTuring = maquinaDeTuring.Step();
-                dgvTablaTransiciones.Rows[maquinaDeTuring.RowIndexAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
+                dgvTablaTransiciones.Rows[RowIndexAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
                 dgvTablaTransiciones.Rows[maquinaDeTuring.RowIndex].DefaultCellStyle.BackColor = Color.Red;
                 dgvTablaTransiciones.Update();
+                RowIndexAnterior = maquinaDeTuring.RowIndex;
                 Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
 
             }
