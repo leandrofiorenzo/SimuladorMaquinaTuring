@@ -44,7 +44,6 @@ namespace SimuladorMaquinaTuring.Modelo
             {
                 throw;
             }
-
         }
 
         private static Transicion GenerarTransicion(DataGridViewRow dataGridViewRow)

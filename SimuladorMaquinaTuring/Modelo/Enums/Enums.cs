@@ -9,7 +9,7 @@
 
     public enum Estado
     {
-        Corriendo,
+        Ejecutandose,
         Pausada,
     };
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+
 namespace SimuladorMaquinaTuring.Modelo
 {
     public class Cabezal
@@ -9,41 +11,54 @@ namespace SimuladorMaquinaTuring.Modelo
         public int PosicionDelCabezal { get; set; }
         public int PosicionDelCabezalAnterior { get; set; }
 
-        public Cabezal(List<char> cintaAProcesar, int posicionDelCabezal)
+        public Cabezal(List<char> cintaAProcesar)
         {
             if(cintaAProcesar.Count() == 0)
                 throw new ArgumentException("Ingrese un input válido.");
 
-            if (posicionDelCabezal > cintaAProcesar.Count() - 1 || posicionDelCabezal < 0)
-                throw new ArgumentException("Posición del cabezal fuera de rango.");
-
             CintaAProcesar = cintaAProcesar;
-            PosicionDelCabezal = posicionDelCabezal;
-            PosicionDelCabezalAnterior = posicionDelCabezal;
+            PosicionDelCabezal = 0;
+            PosicionDelCabezalAnterior = 0;
         }
 
         public char Leer()
         {
+            if (PosicionDelCabezal == -1 || PosicionDelCabezal == CintaAProcesar.Count())
+                return '_';
             return CintaAProcesar.ElementAt(PosicionDelCabezal);
         }
 
         public void Escribir(char caracterAEscribir)
         {
+            if (PosicionDelCabezal >= CintaAProcesar.Count())
+                return;
             CintaAProcesar[PosicionDelCabezal] = caracterAEscribir;
         }
 
         public void MoverseALaIzquierda()
         {
-            if (PosicionDelCabezal == -1) throw new ArgumentException("¡asd!");
+            if (PosicionDelCabezal == -1)
+                return;
             PosicionDelCabezalAnterior = PosicionDelCabezal;
             PosicionDelCabezal = PosicionDelCabezal - 1;
         }
 
+        public bool PuedoMovermeALaIzquierda()
+        {
+            return PosicionDelCabezal > -1;
+        }
+
         public void MoverseALaDerecha()
         {
-            if (PosicionDelCabezal == CintaAProcesar.Count() - 1) throw new ArgumentException("¡asd!");
+            if (PosicionDelCabezal == CintaAProcesar.Count())
+                return;
             PosicionDelCabezalAnterior = PosicionDelCabezal;
             PosicionDelCabezal = PosicionDelCabezal + 1;
+        }
+
+        public bool PuedoMovermeALaDerecha()
+        {
+            return PosicionDelCabezal < CintaAProcesar.Count();
         }
 
         public void Moverse(Direccion direccion)
@@ -61,6 +76,16 @@ namespace SimuladorMaquinaTuring.Modelo
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direccion), direccion, null);
             }
+        }
+
+        public string ObtenerCintaProcesada()
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var c in CintaAProcesar)
+            {
+                stringBuilder.Append(c);
+            }
+            return stringBuilder.ToString();
         }
     }
 }

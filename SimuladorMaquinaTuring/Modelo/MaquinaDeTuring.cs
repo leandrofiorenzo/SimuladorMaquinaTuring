@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace SimuladorMaquinaTuring.Modelo
 {
@@ -14,34 +15,94 @@ namespace SimuladorMaquinaTuring.Modelo
         public int IndiceEnLaTablaAnterior { get; set; }
         public Estado Estado { get; set; }
 
-        public MaquinaDeTuring(string estadoActual, Cabezal cabezal, IEnumerable<Transicion> tablaTransiciones, int intervaloDeTiempo, int indiceEnLaTabla)
+        public MaquinaDeTuring(string estadoActual, Cabezal cabezal, DataGridView dataGridView, int intervaloDeTiempo)
         {
-            if (!estadoActual.Contains("accept") && !estadoActual.Contains("reject") && !tablaTransiciones.Any(t => t.Estado == estadoActual))
-                throw new ArgumentException("Ocurrio un problema: el estado inicial no coincide con ningún estado de la tabla de transiciones");
+            try
+            {
+                TablaTransiciones = Utilidades.GenerarTablaDeTransiciones(dataGridView);
 
-            EstadoActual = estadoActual;
-            Cabezal = cabezal;
-            TablaTransiciones = tablaTransiciones;
-            IntervaloDeTiempo = intervaloDeTiempo;
-            IndiceEnLaTabla = indiceEnLaTabla;
-            IndiceEnLaTablaAnterior = indiceEnLaTabla;
-            Estado = Estado.Pausada;
+                Transicion transicionInicial = TablaTransiciones.FirstOrDefault(t => t.Estado == estadoActual && t.Leer == cabezal.Leer());
+
+                if(transicionInicial == null)
+                    throw new ArgumentException(string.Format("Por favor, verifique el estado inicial y/o la tabla de transiciones. No se encontró transición para el estado {0} leyendo el caracter {1}", estadoActual, cabezal.Leer()));
+
+                EstadoActual = estadoActual;
+                Cabezal = cabezal;
+
+                IntervaloDeTiempo = intervaloDeTiempo;
+                Estado = Estado.Pausada;
+
+                IndiceEnLaTabla = transicionInicial.RowIndex;
+                IndiceEnLaTablaAnterior = IndiceEnLaTabla;
+
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Transicion ObtenerSiguienteTransicion(string estadoActual, char charALeer)
+        {
+            try
+            {
+                Transicion transicionDeLaTabla = TablaTransiciones.FirstOrDefault(t => t.Estado == estadoActual && t.Leer == charALeer);
+
+                bool puedoMoverme = true;
+
+                switch(transicionDeLaTabla.Direccion)
+                {
+                    case Direccion.Derecha:
+                        puedoMoverme = Cabezal.PuedoMovermeALaDerecha();
+                        break;
+                    case Direccion.Izquierda:
+                        puedoMoverme = Cabezal.PuedoMovermeALaIzquierda();
+                        break;
+                }
+                  
+                if (transicionDeLaTabla == null || !puedoMoverme)
+                    throw new ArgumentException(string.Format("No se encontró una transición válida para el estado {0} leyendo el caracter {1}.", estadoActual, charALeer));
+                return transicionDeLaTabla;
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public MaquinaDeTuring Step()
         {
-            Transicion transicion = TablaTransiciones.Where(t => t.Estado == EstadoActual && t.Leer == Cabezal.Leer()).First();
+            try
+            {
+                Transicion transicion = ObtenerSiguienteTransicion(EstadoActual, Cabezal.Leer());
 
-            IndiceEnLaTablaAnterior = IndiceEnLaTabla;
-            IndiceEnLaTabla = transicion.RowIndex;
+                IndiceEnLaTablaAnterior = IndiceEnLaTabla;
+                IndiceEnLaTabla = transicion.RowIndex;
 
-            Cabezal.Escribir(transicion.Escribir);
-            Cabezal.Moverse(transicion.Direccion);
-            
-            EstadoActual = transicion.EstadoSiguiente;
-            IndiceEnLaTabla = transicion.RowIndex;
+                Cabezal.Escribir(transicion.Escribir);
+                Cabezal.Moverse(transicion.Direccion);
 
-            return this;
+                EstadoActual = transicion.EstadoSiguiente;
+                IndiceEnLaTabla = transicion.RowIndex;
+
+                return this;
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void CambiarEstadoAPausa()
@@ -53,16 +114,15 @@ namespace SimuladorMaquinaTuring.Modelo
         {
             return Estado == Estado.Pausada;
         }
-        public void CambiarEstadoACorrer()
+        public void CambiarEstadoAEjecutandose()
         {
-            Estado = Estado.Corriendo;
+            Estado = Estado.Ejecutandose;
         }
-        public bool EstaCorriendo()
+        public bool EstaEjecutandose()
         {
-            return Estado == Estado.Corriendo;
+            return Estado == Estado.Ejecutandose;
         }
 
-  
         public bool HaFinalizado()
         {
             return EstadoActual.Contains("accept") || EstadoActual.Contains("reject");
