@@ -7,70 +7,15 @@ using System.Windows.Forms;
 
 namespace SimuladorMaquinaTuring
 {
-    public partial class Simulador : Form
+    public partial class frmSimulador : Form
     {
         private MaquinaDeTuring maquinaDeTuring = null;
+        private bool PermiteBorrarFila = true;
 
-        public Simulador()
+        public frmSimulador()
         {
             InitializeComponent();
         }
-
-        private void BtnCorrerPresionado(bool habilitar)
-        {
-            btnCorrer.Enabled = habilitar;
-            btnSiguiente.Enabled = habilitar;
-
-            txtEstadoInicial.Enabled = habilitar;
-            txtEstadoInicial.ReadOnly = !habilitar;
-        }
-
-        private void BtnPausarPresionado(bool habilitar)
-        {
-            btnPausar.Enabled = habilitar;
-        }
-        private void BtnSiguientePresionado()
-        {
-
-        }
-
-        private void btnDetenerPresionado()
-        {
-            btnCorrer.Enabled = true;
-            btnSiguiente.Enabled = true;
-            btnPausar.Enabled = true;
-            btnDetener.Enabled = true;
-
-            txtEstadoInicial.Enabled = true;
-            txtEstadoInicial.ReadOnly = false;
-        }
-
-        private void GenerarMaquinaDeTuring()
-        {
-            try
-            {
-                Validar();
-
-                maquinaDeTuring = new MaquinaDeTuring(
-                        txtEstadoInicial.Text.Trim(),
-                        new Cabezal(new List<char>(rtbEntrada.Text.Trim().ToCharArray())),
-                        dgvTablaTransiciones,
-                        int.Parse(txtIntervaloTiempo.Text));
-
-                MessageBox.Show("La máquina de turing se ha generado correctamente, comience a utilizarla.", "Máquina de turing", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
@@ -82,19 +27,20 @@ namespace SimuladorMaquinaTuring
                     return;
                 }
 
-                BtnCorrerPresionado(false);
-
                 ResaltarCaracterEntrada();
                 ResaltarFilaTablaDeTransiciones();
-
                 maquinaDeTuring.CambiarEstadoAEjecutandose();
+
+                btnEditar.Enabled = false;
+                btnCorrer.Enabled = false;
+                btnSiguiente.Enabled = false;
+                btnPausar.Enabled = true;
+                btnDetener.Enabled = true;
 
                 Loop();
             }
             catch (Exception ex)
             {
-                BtnCorrerPresionado(true);
-                maquinaDeTuring = null;
                 MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -111,9 +57,16 @@ namespace SimuladorMaquinaTuring
 
                 maquinaDeTuring.CambiarEstadoAEjecutandose();
 
+                btnEditar.Enabled = false;
+                btnCorrer.Enabled = true;
+                btnSiguiente.Enabled = true;
+                btnPausar.Enabled = false;
+                btnDetener.Enabled = true;
+
                 if (maquinaDeTuring.HaFinalizado())
                 {
-                    MessageBox.Show("Done! " + maquinaDeTuring.EstadoActual);
+                    Finalizo(maquinaDeTuring.EstadoActual);
+                    txtEstadoFinal.Text = maquinaDeTuring.EstadoActual;
                     return;
                 }
 
@@ -121,6 +74,7 @@ namespace SimuladorMaquinaTuring
                 rtbSalida.Text = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
                 ResaltarCaracterEntrada();
                 ResaltarFilaTablaDeTransiciones();
+
 
             }
             catch (ArgumentException ex)
@@ -140,22 +94,37 @@ namespace SimuladorMaquinaTuring
                 while (!maquinaDeTuring.HaFinalizado())
                 {
                     if (maquinaDeTuring.EstaPausada()) return;
-
                     maquinaDeTuring = maquinaDeTuring.Step();
-
-                    rtbSalida.Text = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
-
+                    var cintaProcesada = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
+                    EscribirCintaProcesada(cintaProcesada);
                     ResaltarCaracterEntrada();
                     ResaltarFilaTablaDeTransiciones();
-
                     Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
                 }
-
-                MessageBox.Show("Done! " + maquinaDeTuring.EstadoActual);
-
+                Finalizo(maquinaDeTuring.EstadoActual);
             });
-
             thread.Start();
+        }
+
+        private void Finalizo(string estadoFinal)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(Finalizo), new object[] { estadoFinal });
+                return;
+            }
+            txtEstadoFinal.Text = estadoFinal;
+            txtEstadoFinal.BackColor = estadoFinal.Contains("accept") ? Color.SeaGreen : Color.Red;
+        }
+
+        private void EscribirCintaProcesada(string cintaProcesada)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(EscribirCintaProcesada), new object[] { cintaProcesada });
+                return;
+            }
+            rtbSalida.Text = cintaProcesada;
         }
 
         private void btnPausar_Click(object sender, EventArgs e)
@@ -164,13 +133,18 @@ namespace SimuladorMaquinaTuring
             {
                 if (maquinaDeTuring != null)
                 {
-                    BtnPausarPresionado(false);
                     maquinaDeTuring.CambiarEstadoAPausa();
                 }
+
+                btnEditar.Enabled = true;
+                btnCorrer.Enabled = true;
+                btnSiguiente.Enabled = true;
+                btnPausar.Enabled = false;
+                btnDetener.Enabled = true;
+
             }
             catch (Exception ex)
             {
-                BtnPausarPresionado(true);
                 MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -181,8 +155,6 @@ namespace SimuladorMaquinaTuring
             {
                 if (maquinaDeTuring != null)
                 {
-                    btnDetenerPresionado();
-
                     maquinaDeTuring = new MaquinaDeTuring(
                             txtEstadoInicial.Text.Trim(),
                             new Cabezal(new List<char>(rtbEntrada.Text.Trim().ToCharArray())),
@@ -203,6 +175,14 @@ namespace SimuladorMaquinaTuring
                     dgvTablaTransiciones.Update();
                     rtbEntrada.Update();
                 }
+
+                btnEditar.Enabled = true;
+                btnCorrer.Enabled = true;
+                btnSiguiente.Enabled = true;
+                btnPausar.Enabled = false;
+                btnDetener.Enabled = false;
+                txtEstadoFinal.Text = string.Empty;
+
             }
             catch (Exception ex)
             {
@@ -270,7 +250,20 @@ namespace SimuladorMaquinaTuring
                 switch (cmbCargarPruebas.SelectedIndex)
                 {
                     case 0:
-                        dgvTablaTransiciones.DataSource = TransicionesEjemplo.Contiene101();
+                        foreach (var transicionDeLaTabla in TransicionesEjemplo.Contiene101())
+                        {
+                            dgvTablaTransiciones.Rows.Add(
+                               transicionDeLaTabla.Estado,
+                               transicionDeLaTabla.Leer,
+                               transicionDeLaTabla.Escribir,
+                               transicionDeLaTabla.Direccion == Modelo.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.EstadoSiguiente,
+                               "Eliminar");
+                        }                       
+                        break;
+                    case -1:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         break;
                     default:
                         MessageBox.Show("Ocurrió un problema: no se encontró la tabla de transición.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -289,9 +282,6 @@ namespace SimuladorMaquinaTuring
             dgvTablaTransiciones.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.0F);
             dgvTablaTransiciones.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            rtbEntrada.SelectionAlignment = HorizontalAlignment.Center;
-            rtbSalida.SelectionAlignment = HorizontalAlignment.Center;
-
             cmbDireccion.SelectedIndex = 0;
         }
 
@@ -303,9 +293,105 @@ namespace SimuladorMaquinaTuring
             }
         }
 
-        private void btnGenerarTM_Click(object sender, EventArgs e)
+        private void btnGenerar_Click(object sender, EventArgs e)
         {
-            GenerarMaquinaDeTuring();
+            try
+            {
+                Validar();
+
+                maquinaDeTuring = new MaquinaDeTuring(
+                        txtEstadoInicial.Text.Trim(),
+                        new Cabezal(new List<char>(rtbEntrada.Text.Trim().ToCharArray())),
+                        dgvTablaTransiciones,
+                        int.Parse(txtIntervaloTiempo.Text));
+
+                //Acciones sobre los controles de la sección configuración.            
+                //Textbox:
+                rtbEntrada.Enabled = false;
+                rtbSalida.Enabled = false;
+                txtEstadoInicial.Enabled = false;
+                txtIntervaloTiempo.Enabled = false;
+                txtEstado.Enabled = false;
+                txtLeer.Enabled = false;
+                txtEscribir.Enabled = false;
+                txtEstadoSiguiente.Enabled = false;
+                //ComboBox:
+                cmbCargarPruebas.Enabled = false;
+                cmbDireccion.Enabled = false;
+                //Button:
+                btnGenerar.Enabled = false;
+                btnEditar.Enabled = true;
+                btnLimpiar.Enabled = false;
+                btnAgregar.Enabled = false;
+
+                //Acciones sobre los controles de la sección acciones
+                //Button:
+                btnCorrer.Enabled = true;
+                btnSiguiente.Enabled = true;
+                btnPausar.Enabled = false;
+                btnDetener.Enabled = false;
+
+                //Flag para eliminar una fila de la grilla.
+                PermiteBorrarFila = false;
+
+                MessageBox.Show("La máquina de turing se ha generado correctamente, comience a utilizarla desde el panel de acciones.", "Máquina de turing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            //Acciones sobre los controles de la sección configuración.            
+            //Textbox:
+            rtbEntrada.Enabled = true;
+            rtbSalida.Enabled = true;
+            txtEstadoInicial.Enabled = true;
+            txtIntervaloTiempo.Enabled = true;
+            txtEstado.Enabled = true;
+            txtLeer.Enabled = true;
+            txtEscribir.Enabled = true;
+            txtEstadoSiguiente.Enabled = true;
+            //ComboBox.
+            cmbCargarPruebas.Enabled = true;
+            cmbDireccion.Enabled = true;
+            //Button.
+            btnGenerar.Enabled = true;
+            btnEditar.Enabled = false;
+            btnLimpiar.Enabled = true;
+            btnAgregar.Enabled = true;
+
+            //Acciones sobre los controles de la sección acciones
+            //Button:
+            btnCorrer.Enabled = false;
+            btnSiguiente.Enabled = false;
+            btnPausar.Enabled = false;
+            btnDetener.Enabled = false;
+
+            //Flag para eliminar una fila de la grilla.
+            PermiteBorrarFila = true;   
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("¿Esta seguro que desea limpiar todo? \n Perderá todo lo cargado, incluso la tabla de transiciones.", "Atención.", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if(respuesta == DialogResult.OK)
+            {
+                rtbEntrada.Text = string.Empty;
+                rtbSalida.Text = string.Empty;
+                txtEstadoInicial.Text = string.Empty;
+                txtIntervaloTiempo.Text = "1";
+                cmbCargarPruebas.SelectedIndex = -1;
+                Limpiar();
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -346,19 +432,15 @@ namespace SimuladorMaquinaTuring
             }
 
             dgvTablaTransiciones.Rows.Add(
-                estado, 
-                leer, 
-                escribir, 
-                direccion == 0 ? 'L' : 'R', 
+                estado,
+                leer,
+                escribir,
+                direccion == 0 ? 'L' : 'R',
                 estadoSiguiente,
                 "Eliminar");
+
             Limpiar();
             txtEstado.Focus();
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            Limpiar();
         }
 
         private void Limpiar()
@@ -374,9 +456,13 @@ namespace SimuladorMaquinaTuring
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
+                if (!PermiteBorrarFila)
+                {
+                    MessageBox.Show("Para poder eliminar la fila debe presionar el botón editar y luego volver a generar la maquina de turing.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 dgvTablaTransiciones.Rows.RemoveAt(e.RowIndex);
             }
         }

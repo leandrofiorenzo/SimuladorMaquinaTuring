@@ -78,6 +78,8 @@ namespace SimuladorMaquinaTuring.Modelo
             }
         }
 
+
+
         public string ObtenerCintaProcesada()
         {
             var stringBuilder = new StringBuilder();

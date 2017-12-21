@@ -13,7 +13,7 @@ namespace SimuladorMaquinaTuring
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Simulador());
+            Application.Run(new frmSimulador());
         }
     }
 }

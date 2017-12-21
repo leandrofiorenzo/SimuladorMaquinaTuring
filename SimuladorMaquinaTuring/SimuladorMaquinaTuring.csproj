@@ -51,11 +51,11 @@
     <Compile Include="Modelo\Cabezal.cs" />
     <Compile Include="Modelo\Enums\Enums.cs" />
     <Compile Include="Modelo\MaquinaDeTuring.cs" />
-    <Compile Include="Simulador.cs">
+    <Compile Include="frmSimulador.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Simulador.Designer.cs">
-      <DependentUpon>Simulador.cs</DependentUpon>
+    <Compile Include="frmSimulador.Designer.cs">
+      <DependentUpon>frmSimulador.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,8 +69,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Simulador.resx">
-      <DependentUpon>Simulador.cs</DependentUpon>
+    <EmbeddedResource Include="frmSimulador.resx">
+      <DependentUpon>frmSimulador.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

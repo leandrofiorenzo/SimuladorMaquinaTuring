@@ -24,7 +24,10 @@ namespace SimuladorMaquinaTuring.Modelo
                 Transicion transicionInicial = TablaTransiciones.FirstOrDefault(t => t.Estado == estadoActual && t.Leer == cabezal.Leer());
 
                 if(transicionInicial == null)
-                    throw new ArgumentException(string.Format("Por favor, verifique el estado inicial y/o la tabla de transiciones. No se encontró transición para el estado {0} leyendo el caracter {1}", estadoActual, cabezal.Leer()));
+                    throw new ArgumentException(string.Format("Por favor, verifique el estado inicial y/o la tabla de transiciones. No se encontró transición para el estado {0} leyendo el caracter {1}.", estadoActual, cabezal.Leer()));
+
+                if(!TablaTransiciones.Any(x => x.Estado.Contains("accept")) && !TablaTransiciones.Any(x => x.EstadoSiguiente.Contains("accept")))
+                    throw new ArgumentException(string.Format("Por favor, verifique la tabla de transiciones. No se encontro ningún estado 'accept'.", estadoActual, cabezal.Leer()));
 
                 EstadoActual = estadoActual;
                 Cabezal = cabezal;
