@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimuladorMaquinaTuring.Modelo.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,13 +69,11 @@ namespace SimuladorMaquinaTuring.Modelo
                 case Direccion.Izquierda:
                     MoverseALaIzquierda();
                     break;
-                case Direccion.NoMoverse:
-                    break;
                 case Direccion.Derecha:
                     MoverseALaDerecha();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direccion), direccion, null);
+                    break;
             }
         }
 

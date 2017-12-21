@@ -1,29 +1,11 @@
-﻿using System;
+﻿using SimuladorMaquinaTuring.Modelo;
+using SimuladorMaquinaTuring.Modelo.Enums;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace SimuladorMaquinaTuring.Modelo
+namespace SimuladorMaquinaTuring.Utilidades
 {
-    public static class TransicionesEjemplo
-    {
-        public static IEnumerable<Transicion> Contiene101()
-        {
-            return new[]
-            {
-                new Transicion("q0", '0', '0', Direccion.Derecha, "q0", 0),
-                new Transicion("q0", '_', '_', Direccion.Derecha, "qreject", 0),
-                new Transicion("q0", '1', '1', Direccion.Derecha, "q1", 0),
-                new Transicion("q1", '0', '0', Direccion.Derecha, "q2", 0),
-                new Transicion("q1", '_', '_', Direccion.Derecha, "qreject", 0),
-                new Transicion("q1", '1', '1', Direccion.Derecha, "q1", 0),
-                new Transicion("q2", '0', '0', Direccion.Derecha, "q0", 0),
-                new Transicion("q2", '_', '_', Direccion.Derecha, "qreject", 0),
-                new Transicion("q2", '1', '1', Direccion.Derecha, "qaccept", 0),
-            };
-        }
-    }
-
     public class Utilidades
     {
         public static IEnumerable<Transicion> GenerarTablaDeTransiciones(DataGridView dataGridView)

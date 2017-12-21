@@ -74,6 +74,8 @@
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.txtEscribir = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtEstadoFinal = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.rtbSalida = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -81,8 +83,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtEstadoFinal = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtPasos = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTablaTransiciones)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -311,9 +313,9 @@
             this.rtbEntrada.Location = new System.Drawing.Point(3, 31);
             this.rtbEntrada.Name = "rtbEntrada";
             this.rtbEntrada.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbEntrada.Size = new System.Drawing.Size(273, 34);
+            this.rtbEntrada.Size = new System.Drawing.Size(237, 34);
             this.rtbEntrada.TabIndex = 1;
-            this.rtbEntrada.Text = "00101110";
+            this.rtbEntrada.Text = "";
             // 
             // txtEstadoInicial
             // 
@@ -551,10 +553,13 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel2.Controls.Add(this.txtPasos, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtEstadoFinal, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.label1, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.rtbSalida, 1, 1);
@@ -570,15 +575,41 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(665, 68);
             this.tableLayoutPanel2.TabIndex = 23;
             // 
+            // txtEstadoFinal
+            // 
+            this.txtEstadoFinal.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtEstadoFinal.BackColor = System.Drawing.SystemColors.Window;
+            this.txtEstadoFinal.Enabled = false;
+            this.txtEstadoFinal.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEstadoFinal.Location = new System.Drawing.Point(489, 33);
+            this.txtEstadoFinal.MaxLength = 2;
+            this.txtEstadoFinal.Name = "txtEstadoFinal";
+            this.txtEstadoFinal.ReadOnly = true;
+            this.txtEstadoFinal.Size = new System.Drawing.Size(99, 29);
+            this.txtEstadoFinal.TabIndex = 24;
+            this.txtEstadoFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(489, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 21);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Estado Final:";
+            // 
             // rtbSalida
             // 
             this.rtbSalida.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbSalida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbSalida.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.rtbSalida.Location = new System.Drawing.Point(282, 31);
+            this.rtbSalida.Location = new System.Drawing.Point(246, 31);
             this.rtbSalida.Name = "rtbSalida";
             this.rtbSalida.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.rtbSalida.Size = new System.Drawing.Size(273, 34);
+            this.rtbSalida.Size = new System.Drawing.Size(237, 34);
             this.rtbSalida.TabIndex = 2;
             this.rtbSalida.Text = "";
             // 
@@ -588,7 +619,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(282, 7);
+            this.label6.Location = new System.Drawing.Point(246, 7);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 21);
             this.label6.TabIndex = 23;
@@ -666,31 +697,32 @@
             this.richTextBox1.Text = "una vez me comi un aventruz pero estaba tan feo que casi vomito hasta el orto, la" +
     " puta madre que lo pario majajaja";
             // 
-            // label1
+            // label7
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(561, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 21);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Estado Final:";
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(594, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 21);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Pasos:";
             // 
-            // txtEstadoFinal
+            // txtPasos
             // 
-            this.txtEstadoFinal.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtEstadoFinal.BackColor = System.Drawing.SystemColors.Window;
-            this.txtEstadoFinal.Enabled = false;
-            this.txtEstadoFinal.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEstadoFinal.Location = new System.Drawing.Point(561, 33);
-            this.txtEstadoFinal.MaxLength = 2;
-            this.txtEstadoFinal.Name = "txtEstadoFinal";
-            this.txtEstadoFinal.ReadOnly = true;
-            this.txtEstadoFinal.Size = new System.Drawing.Size(101, 29);
-            this.txtEstadoFinal.TabIndex = 24;
-            this.txtEstadoFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPasos.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtPasos.BackColor = System.Drawing.SystemColors.Window;
+            this.txtPasos.Enabled = false;
+            this.txtPasos.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPasos.Location = new System.Drawing.Point(594, 33);
+            this.txtPasos.MaxLength = 2;
+            this.txtPasos.Name = "txtPasos";
+            this.txtPasos.ReadOnly = true;
+            this.txtPasos.Size = new System.Drawing.Size(68, 29);
+            this.txtPasos.TabIndex = 26;
+            this.txtPasos.Text = "0";
+            this.txtPasos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frmSimulador
             // 
@@ -768,6 +800,8 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.TextBox txtEstadoFinal;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPasos;
+        private System.Windows.Forms.Label label7;
     }
 }
 

@@ -1,10 +1,9 @@
-﻿namespace SimuladorMaquinaTuring.Modelo
+﻿namespace SimuladorMaquinaTuring.Modelo.Enums
 {
     public enum Direccion
     {
         Izquierda,
         Derecha,
-        NoMoverse
     };
 
     public enum Estado

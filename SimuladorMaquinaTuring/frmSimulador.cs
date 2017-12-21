@@ -74,7 +74,7 @@ namespace SimuladorMaquinaTuring
                 rtbSalida.Text = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
                 ResaltarCaracterEntrada();
                 ResaltarFilaTablaDeTransiciones();
-
+                IncrementarPasos(maquinaDeTuring.Pasos.ToString());
 
             }
             catch (ArgumentException ex)
@@ -89,21 +89,33 @@ namespace SimuladorMaquinaTuring
 
         private void Loop()
         {
-            var thread = new Thread(() =>
+            var threadMaquina = new Thread(() =>
             {
-                while (!maquinaDeTuring.HaFinalizado())
+                try
                 {
-                    if (maquinaDeTuring.EstaPausada()) return;
-                    maquinaDeTuring = maquinaDeTuring.Step();
-                    var cintaProcesada = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
-                    EscribirCintaProcesada(cintaProcesada);
-                    ResaltarCaracterEntrada();
-                    ResaltarFilaTablaDeTransiciones();
-                    Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
+                    while (!maquinaDeTuring.HaFinalizado())
+                    {
+                        if (maquinaDeTuring.EstaPausada()) return;
+                        maquinaDeTuring = maquinaDeTuring.Step();
+                        var cintaProcesada = maquinaDeTuring.Cabezal.ObtenerCintaProcesada();
+                        EscribirCintaProcesada(cintaProcesada);
+                        ResaltarCaracterEntrada();
+                        ResaltarFilaTablaDeTransiciones();
+                        IncrementarPasos(maquinaDeTuring.Pasos.ToString());
+                        Thread.Sleep(maquinaDeTuring.IntervaloDeTiempo * 1000);
+                    }
+                    Finalizo(maquinaDeTuring.EstadoActual);
                 }
-                Finalizo(maquinaDeTuring.EstadoActual);
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un problema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             });
-            thread.Start();
+            threadMaquina.Start();
         }
 
         private void Finalizo(string estadoFinal)
@@ -115,8 +127,16 @@ namespace SimuladorMaquinaTuring
             }
             txtEstadoFinal.Text = estadoFinal;
             txtEstadoFinal.BackColor = estadoFinal.Contains("accept") ? Color.SeaGreen : Color.Red;
+            txtEstadoFinal.ForeColor = Color.Black;
         }
-
+        private void IncrementarPasos(string pasos) {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(IncrementarPasos), new object[] { pasos });
+                return;
+            }
+            txtPasos.Text = pasos;
+        }
         private void EscribirCintaProcesada(string cintaProcesada)
         {
             if (InvokeRequired)
@@ -172,6 +192,11 @@ namespace SimuladorMaquinaTuring
                     rtbEntrada.Select(0, rtbEntrada.Text.Length - 1);
                     rtbEntrada.SelectionColor = SystemColors.WindowText;
 
+                    txtEstadoFinal.Text = string.Empty;
+                    txtEstadoFinal.BackColor = SystemColors.Window;
+
+                    txtPasos.Text = "0";
+
                     dgvTablaTransiciones.Update();
                     rtbEntrada.Update();
                 }
@@ -181,7 +206,6 @@ namespace SimuladorMaquinaTuring
                 btnSiguiente.Enabled = true;
                 btnPausar.Enabled = false;
                 btnDetener.Enabled = false;
-                txtEstadoFinal.Text = string.Empty;
 
             }
             catch (Exception ex)
@@ -250,16 +274,17 @@ namespace SimuladorMaquinaTuring
                 switch (cmbCargarPruebas.SelectedIndex)
                 {
                     case 0:
-                        foreach (var transicionDeLaTabla in TransicionesEjemplo.Contiene101())
+                        foreach (var transicionDeLaTabla in Contiene101.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
                                transicionDeLaTabla.Estado,
                                transicionDeLaTabla.Leer,
                                transicionDeLaTabla.Escribir,
-                               transicionDeLaTabla.Direccion == Modelo.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.Direccion == Modelo.Enums.Direccion.Izquierda ? 'L' : 'R',
                                transicionDeLaTabla.EstadoSiguiente,
                                "Eliminar");
-                        }                       
+                        }
+                        rtbEntrada.Text = Contiene101.ObtenerEntrada();
                         break;
                     case -1:
                         dgvTablaTransiciones.Rows.Clear();
@@ -376,14 +401,14 @@ namespace SimuladorMaquinaTuring
             btnDetener.Enabled = false;
 
             //Flag para eliminar una fila de la grilla.
-            PermiteBorrarFila = true;   
+            PermiteBorrarFila = true;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             DialogResult respuesta = MessageBox.Show("¿Esta seguro que desea limpiar todo? \n Perderá todo lo cargado, incluso la tabla de transiciones.", "Atención.", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if(respuesta == DialogResult.OK)
+            if (respuesta == DialogResult.OK)
             {
                 rtbEntrada.Text = string.Empty;
                 rtbSalida.Text = string.Empty;

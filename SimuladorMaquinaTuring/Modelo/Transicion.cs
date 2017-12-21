@@ -1,4 +1,6 @@
-﻿namespace SimuladorMaquinaTuring.Modelo
+﻿using SimuladorMaquinaTuring.Modelo.Enums;
+
+namespace SimuladorMaquinaTuring.Modelo
 {
     public class Transicion
     {
