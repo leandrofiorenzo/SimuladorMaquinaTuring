@@ -59,14 +59,14 @@ namespace SimuladorMaquinaTuring.Modelo
             {
                 Transicion transicionDeLaTabla = TablaTransiciones.FirstOrDefault(t => t.Estado == estadoActual && t.Leer == charALeer);
 
+                if (transicionDeLaTabla == null)
+                    throw new ArgumentException(string.Format("No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'.", estadoActual, charALeer));
+
                 bool puedoMoverme = true;
 
                 if (transicionDeLaTabla.Direccion == Direccion.Derecha)
                 {
                     puedoMoverme = Cabezal.PuedoMovermeALaDerecha();
-
-                    if (transicionDeLaTabla == null)
-                        throw new ArgumentException(string.Format("No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'.", estadoActual, charALeer));
 
                     if (!puedoMoverme)
                         throw new ArgumentException(string.Format(
@@ -79,10 +79,7 @@ namespace SimuladorMaquinaTuring.Modelo
                 else
                 {
                     puedoMoverme = Cabezal.PuedoMovermeALaIzquierda();
-
-                    if (transicionDeLaTabla == null)
-                        throw new ArgumentException(string.Format("No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'.", estadoActual, charALeer));
-
+                  
                     if (!puedoMoverme)
                         throw new ArgumentException(string.Format(
                             "No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'." +

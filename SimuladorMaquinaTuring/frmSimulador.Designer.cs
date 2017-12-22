@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSimulador));
             this.btnCorrer = new System.Windows.Forms.Button();
             this.dgvTablaTransiciones = new System.Windows.Forms.DataGridView();
@@ -47,12 +47,10 @@
             this.EstadoSiguiente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnSiguiente = new System.Windows.Forms.Button();
-            this.btnDetener = new System.Windows.Forms.Button();
             this.cmbCargarPruebas = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtIntervaloTiempo = new System.Windows.Forms.TextBox();
-            this.btnPausar = new System.Windows.Forms.Button();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.txtEstadoInicial = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -85,6 +83,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnPausar = new System.Windows.Forms.Button();
+            this.btnDetener = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTablaTransiciones)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -98,11 +98,11 @@
             // 
             this.btnCorrer.Enabled = false;
             this.btnCorrer.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCorrer.Location = new System.Drawing.Point(6, 28);
+            this.btnCorrer.Location = new System.Drawing.Point(24, 32);
             this.btnCorrer.Name = "btnCorrer";
-            this.btnCorrer.Size = new System.Drawing.Size(75, 26);
+            this.btnCorrer.Size = new System.Drawing.Size(75, 39);
             this.btnCorrer.TabIndex = 2;
-            this.btnCorrer.Text = "Correr";
+            this.btnCorrer.Text = "Ejecutar";
             this.btnCorrer.UseVisualStyleBackColor = true;
             this.btnCorrer.Click += new System.EventHandler(this.btnIniciar_Click);
             // 
@@ -112,14 +112,14 @@
             this.dgvTablaTransiciones.AllowUserToDeleteRows = false;
             this.dgvTablaTransiciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTablaTransiciones.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTablaTransiciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTablaTransiciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvTablaTransiciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTablaTransiciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Estado,
@@ -128,25 +128,25 @@
             this.Direccion,
             this.EstadoSiguiente,
             this.Eliminar});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTablaTransiciones.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTablaTransiciones.DefaultCellStyle = dataGridViewCellStyle17;
             this.dgvTablaTransiciones.Location = new System.Drawing.Point(6, 236);
             this.dgvTablaTransiciones.Name = "dgvTablaTransiciones";
             this.dgvTablaTransiciones.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTablaTransiciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTablaTransiciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgvTablaTransiciones.Size = new System.Drawing.Size(665, 329);
             this.dgvTablaTransiciones.TabIndex = 5;
             this.dgvTablaTransiciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTablaTransiciones_CellContentClick);
@@ -154,9 +154,9 @@
             // Estado
             // 
             this.Estado.DataPropertyName = "Estado";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Estado.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Estado.DefaultCellStyle = dataGridViewCellStyle11;
             this.Estado.FillWeight = 57.17046F;
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
@@ -165,9 +165,9 @@
             // Leer
             // 
             this.Leer.DataPropertyName = "Leer";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Leer.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Leer.DefaultCellStyle = dataGridViewCellStyle12;
             this.Leer.FillWeight = 73.94442F;
             this.Leer.HeaderText = "Leer";
             this.Leer.Name = "Leer";
@@ -176,9 +176,9 @@
             // Escribir
             // 
             this.Escribir.DataPropertyName = "Escribir";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Escribir.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Escribir.DefaultCellStyle = dataGridViewCellStyle13;
             this.Escribir.FillWeight = 95.07851F;
             this.Escribir.HeaderText = "Escribir";
             this.Escribir.Name = "Escribir";
@@ -187,9 +187,9 @@
             // Direccion
             // 
             this.Direccion.DataPropertyName = "DireccionChar";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Direccion.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Direccion.DefaultCellStyle = dataGridViewCellStyle14;
             this.Direccion.FillWeight = 121.5224F;
             this.Direccion.HeaderText = "Direccion";
             this.Direccion.Name = "Direccion";
@@ -199,9 +199,9 @@
             // EstadoSiguiente
             // 
             this.EstadoSiguiente.DataPropertyName = "EstadoSiguiente";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EstadoSiguiente.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EstadoSiguiente.DefaultCellStyle = dataGridViewCellStyle15;
             this.EstadoSiguiente.FillWeight = 152.2843F;
             this.EstadoSiguiente.HeaderText = "Estado Siguiente";
             this.EstadoSiguiente.Name = "EstadoSiguiente";
@@ -209,9 +209,9 @@
             // 
             // Eliminar
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Eliminar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Eliminar.DefaultCellStyle = dataGridViewCellStyle16;
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
             this.Eliminar.ReadOnly = true;
@@ -221,25 +221,13 @@
             // 
             this.btnSiguiente.Enabled = false;
             this.btnSiguiente.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.Location = new System.Drawing.Point(87, 28);
+            this.btnSiguiente.Location = new System.Drawing.Point(105, 32);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(75, 25);
+            this.btnSiguiente.Size = new System.Drawing.Size(75, 39);
             this.btnSiguiente.TabIndex = 6;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnStep_Click);
-            // 
-            // btnDetener
-            // 
-            this.btnDetener.Enabled = false;
-            this.btnDetener.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetener.Location = new System.Drawing.Point(249, 29);
-            this.btnDetener.Name = "btnDetener";
-            this.btnDetener.Size = new System.Drawing.Size(75, 25);
-            this.btnDetener.TabIndex = 7;
-            this.btnDetener.Text = "Detener";
-            this.btnDetener.UseVisualStyleBackColor = true;
-            this.btnDetener.Click += new System.EventHandler(this.btnDetener_Click);
             // 
             // cmbCargarPruebas
             // 
@@ -251,7 +239,8 @@
             "Contiene 101",
             "Termina en 1",
             "El antepenúltimo es un 1",
-            "0^n 1^n"});
+            "0^n 1^n",
+            "Sumar dos números en unario"});
             this.cmbCargarPruebas.Location = new System.Drawing.Point(415, 5);
             this.cmbCargarPruebas.Name = "cmbCargarPruebas";
             this.cmbCargarPruebas.Size = new System.Drawing.Size(247, 25);
@@ -294,19 +283,6 @@
             this.txtIntervaloTiempo.Text = "1";
             this.txtIntervaloTiempo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtIntervaloTiempo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIntervaloTiempo_KeyPress);
-            // 
-            // btnPausar
-            // 
-            this.btnPausar.BackColor = System.Drawing.Color.Transparent;
-            this.btnPausar.Enabled = false;
-            this.btnPausar.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPausar.Location = new System.Drawing.Point(168, 29);
-            this.btnPausar.Name = "btnPausar";
-            this.btnPausar.Size = new System.Drawing.Size(75, 25);
-            this.btnPausar.TabIndex = 16;
-            this.btnPausar.Text = "Pausar";
-            this.btnPausar.UseVisualStyleBackColor = false;
-            this.btnPausar.Click += new System.EventHandler(this.btnPausar_Click);
             // 
             // rtbEntrada
             // 
@@ -699,7 +675,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(695, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(331, 73);
+            this.groupBox2.Size = new System.Drawing.Size(378, 85);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Acciones";
@@ -708,9 +684,9 @@
             // 
             this.groupBox3.Controls.Add(this.richTextBox1);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(695, 190);
+            this.groupBox3.Location = new System.Drawing.Point(695, 103);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(331, 180);
+            this.groupBox3.Size = new System.Drawing.Size(378, 335);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Información";
@@ -719,20 +695,47 @@
             // 
             this.richTextBox1.BackColor = System.Drawing.Color.Gray;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 25);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(325, 152);
+            this.richTextBox1.Size = new System.Drawing.Size(372, 307);
             this.richTextBox1.TabIndex = 24;
-            this.richTextBox1.Text = "una vez me comi un aventruz pero estaba tan feo que casi vomito hasta el orto, la" +
-    " puta madre que lo pario majajaja";
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
+            // btnPausar
+            // 
+            this.btnPausar.BackColor = System.Drawing.Color.Transparent;
+            this.btnPausar.Enabled = false;
+            this.btnPausar.FlatAppearance.BorderSize = 0;
+            this.btnPausar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPausar.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPausar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnPausar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPausar.Location = new System.Drawing.Point(195, 31);
+            this.btnPausar.Name = "btnPausar";
+            this.btnPausar.Size = new System.Drawing.Size(40, 40);
+            this.btnPausar.TabIndex = 16;
+            this.btnPausar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPausar.UseVisualStyleBackColor = false;
+            this.btnPausar.Click += new System.EventHandler(this.btnPausar_Click);
+            // 
+            // btnDetener
+            // 
+            this.btnDetener.Enabled = false;
+            this.btnDetener.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetener.Location = new System.Drawing.Point(263, 0);
+            this.btnDetener.Name = "btnDetener";
+            this.btnDetener.Size = new System.Drawing.Size(87, 78);
+            this.btnDetener.TabIndex = 7;
+            this.btnDetener.UseVisualStyleBackColor = true;
+            this.btnDetener.Click += new System.EventHandler(this.btnDetener_Click);
             // 
             // frmSimulador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1038, 595);
+            this.ClientSize = new System.Drawing.Size(1085, 595);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

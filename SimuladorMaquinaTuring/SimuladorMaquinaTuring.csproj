@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ejemplos\0n1n.cs" />
+    <Compile Include="Ejemplos\SumarDosNumerosEnUnario.cs" />
     <Compile Include="Ejemplos\AntepenultimoEsUn1.cs" />
     <Compile Include="Ejemplos\TerminaEn1.cs" />
     <Compile Include="Ejemplos\Contiene101.cs" />
@@ -62,17 +63,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\Utilidades.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="frmSimulador.resx">
       <DependentUpon>frmSimulador.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,8 +91,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Recursos\arrow-pointing-to-right_32x32.png" />
     <Content Include="Recursos\icono.ico" />
-    <Content Include="Recursos\pause_green_64x64.ico" />
+    <None Include="Recursos\pause_32x32.png" />
+    <None Include="Recursos\play_32x32.png" />
+    <Content Include="Recursos\stop_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

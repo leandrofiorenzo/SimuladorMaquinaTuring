@@ -336,7 +336,21 @@ namespace SimuladorMaquinaTuring
                         }
                         rtbEntrada.Text = On1n.ObtenerEntrada();
                         txtEstadoInicial.Text = On1n.ObtenerEstadoInicial();
-                        break;                        
+                        break;
+                    case 4:
+                        foreach (var transicionDeLaTabla in SumarDosNumerosEnUnario.ObtenerTablaDeTransiciones())
+                        {
+                            dgvTablaTransiciones.Rows.Add(
+                               transicionDeLaTabla.Estado,
+                               transicionDeLaTabla.Leer,
+                               transicionDeLaTabla.Escribir,
+                               transicionDeLaTabla.Direccion == Modelo.Enums.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.EstadoSiguiente,
+                               "Eliminar");
+                        }
+                        rtbEntrada.Text = SumarDosNumerosEnUnario.ObtenerEntrada();
+                        txtEstadoInicial.Text = SumarDosNumerosEnUnario.ObtenerEstadoInicial();
+                        break;
                     case -1:
                         dgvTablaTransiciones.Rows.Clear();
                         dgvTablaTransiciones.Refresh();

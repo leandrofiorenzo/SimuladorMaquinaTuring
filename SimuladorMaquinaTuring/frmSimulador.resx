@@ -135,6 +135,19 @@
   <metadata name="Eliminar.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>- La máquina de turing es case sensitive.
+- El caracter en blanco se representa como _.
+- En la tabla de transiciones debe existir al menos una transición que tenga como 'Estado siguiente' un 'estado de aceptado'.
+- Se entiende como 'estado de aceptado' una cadena que contenga 'accept'.
+- Se entiende como 'estado de rechazado' una cadena que contenga 'reject'.
+- Cada fila de la tabla de transiciones consta de:
+      - Estado: una cadena de texto libre (q0, q1, 0,cero).
+      - Leer: un caracter libre (0, 1, _).
+      - Escribir: un caracter libre (0, 1, _).
+      - Dirección: un caraceter (L, R).
+      - Estado siguiente: una cadena de texto libre (q0, q1, 0,cero,accept,qaccept,qreject).</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
