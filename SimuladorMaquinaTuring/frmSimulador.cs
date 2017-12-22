@@ -282,6 +282,8 @@ namespace SimuladorMaquinaTuring
                 switch (cmbCargarPruebas.SelectedIndex)
                 {
                     case 0:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         foreach (var transicionDeLaTabla in Contiene101.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
@@ -296,6 +298,8 @@ namespace SimuladorMaquinaTuring
                         txtEstadoInicial.Text = Contiene101.ObtenerEstadoInicial();
                         break;
                     case 1:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         foreach (var transicionDeLaTabla in TerminaEn1.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
@@ -310,6 +314,8 @@ namespace SimuladorMaquinaTuring
                         txtEstadoInicial.Text = TerminaEn1.ObtenerEstadoInicial();
                         break;
                     case 2:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         foreach (var transicionDeLaTabla in AntepenultimoEsUn1.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
@@ -324,6 +330,8 @@ namespace SimuladorMaquinaTuring
                         txtEstadoInicial.Text = AntepenultimoEsUn1.ObtenerEstadoInicial();
                         break;
                     case 3:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         foreach (var transicionDeLaTabla in On1n.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
@@ -338,6 +346,8 @@ namespace SimuladorMaquinaTuring
                         txtEstadoInicial.Text = On1n.ObtenerEstadoInicial();
                         break;
                     case 4:
+                        dgvTablaTransiciones.Rows.Clear();
+                        dgvTablaTransiciones.Refresh();
                         foreach (var transicionDeLaTabla in SumarDosNumerosEnUnario.ObtenerTablaDeTransiciones())
                         {
                             dgvTablaTransiciones.Rows.Add(
