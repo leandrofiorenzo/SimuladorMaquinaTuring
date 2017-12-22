@@ -186,11 +186,12 @@ namespace SimuladorMaquinaTuring
                     foreach (DataGridViewRow dataGridViewRow in dgvTablaTransiciones.Rows)
                     {
                         dataGridViewRow.DefaultCellStyle.BackColor = SystemColors.Window;
-                        rtbEntrada.Update();
                     }
 
-                    rtbEntrada.Select(0, rtbEntrada.Text.Length - 1);
+                    rtbEntrada.Select(0, rtbEntrada.Text.Length);
                     rtbEntrada.SelectionColor = SystemColors.WindowText;
+
+                    rtbSalida.Text = string.Empty;
 
                     txtEstadoFinal.Text = string.Empty;
                     txtEstadoFinal.BackColor = SystemColors.Window;
@@ -243,6 +244,7 @@ namespace SimuladorMaquinaTuring
                 return;
             }
 
+
             dgvTablaTransiciones.Rows[maquinaDeTuring.IndiceEnLaTablaAnterior].DefaultCellStyle.BackColor = SystemColors.Window;
 
             dgvTablaTransiciones.Rows[maquinaDeTuring.IndiceEnLaTabla].DefaultCellStyle.BackColor = Color.Red;
@@ -258,11 +260,17 @@ namespace SimuladorMaquinaTuring
                 return;
             }
 
-            rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezalAnterior, 1);
-            rtbEntrada.SelectionColor = SystemColors.WindowText;
+            if (maquinaDeTuring.Cabezal.PosicionDelCabezalAnterior > -1)
+            {
+                rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezalAnterior, 1);
+                rtbEntrada.SelectionColor = SystemColors.WindowText;
+            }
 
-            rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezal, 1);
-            rtbEntrada.SelectionColor = Color.Red;
+            if (maquinaDeTuring.Cabezal.PosicionDelCabezal > -1)
+            {
+                rtbEntrada.Select(maquinaDeTuring.Cabezal.PosicionDelCabezal, 1);
+                rtbEntrada.SelectionColor = Color.Red;
+            }
 
             rtbEntrada.Update();
         }
@@ -285,7 +293,50 @@ namespace SimuladorMaquinaTuring
                                "Eliminar");
                         }
                         rtbEntrada.Text = Contiene101.ObtenerEntrada();
+                        txtEstadoInicial.Text = Contiene101.ObtenerEstadoInicial();
                         break;
+                    case 1:
+                        foreach (var transicionDeLaTabla in TerminaEn1.ObtenerTablaDeTransiciones())
+                        {
+                            dgvTablaTransiciones.Rows.Add(
+                               transicionDeLaTabla.Estado,
+                               transicionDeLaTabla.Leer,
+                               transicionDeLaTabla.Escribir,
+                               transicionDeLaTabla.Direccion == Modelo.Enums.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.EstadoSiguiente,
+                               "Eliminar");
+                        }
+                        rtbEntrada.Text = TerminaEn1.ObtenerEntrada();
+                        txtEstadoInicial.Text = TerminaEn1.ObtenerEstadoInicial();
+                        break;
+                    case 2:
+                        foreach (var transicionDeLaTabla in AntepenultimoEsUn1.ObtenerTablaDeTransiciones())
+                        {
+                            dgvTablaTransiciones.Rows.Add(
+                               transicionDeLaTabla.Estado,
+                               transicionDeLaTabla.Leer,
+                               transicionDeLaTabla.Escribir,
+                               transicionDeLaTabla.Direccion == Modelo.Enums.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.EstadoSiguiente,
+                               "Eliminar");
+                        }
+                        rtbEntrada.Text = AntepenultimoEsUn1.ObtenerEntrada();
+                        txtEstadoInicial.Text = AntepenultimoEsUn1.ObtenerEstadoInicial();
+                        break;
+                    case 3:
+                        foreach (var transicionDeLaTabla in On1n.ObtenerTablaDeTransiciones())
+                        {
+                            dgvTablaTransiciones.Rows.Add(
+                               transicionDeLaTabla.Estado,
+                               transicionDeLaTabla.Leer,
+                               transicionDeLaTabla.Escribir,
+                               transicionDeLaTabla.Direccion == Modelo.Enums.Direccion.Izquierda ? 'L' : 'R',
+                               transicionDeLaTabla.EstadoSiguiente,
+                               "Eliminar");
+                        }
+                        rtbEntrada.Text = On1n.ObtenerEntrada();
+                        txtEstadoInicial.Text = On1n.ObtenerEstadoInicial();
+                        break;                        
                     case -1:
                         dgvTablaTransiciones.Rows.Clear();
                         dgvTablaTransiciones.Refresh();

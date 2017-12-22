@@ -74,6 +74,8 @@
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.txtEscribir = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtPasos = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtEstadoFinal = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.rtbSalida = new System.Windows.Forms.RichTextBox();
@@ -83,8 +85,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtPasos = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTablaTransiciones)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -248,7 +248,10 @@
             this.cmbCargarPruebas.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCargarPruebas.FormattingEnabled = true;
             this.cmbCargarPruebas.Items.AddRange(new object[] {
-            "Contiene 101"});
+            "Contiene 101",
+            "Termina en 1",
+            "El antepenúltimo es un 1",
+            "0^n 1^n"});
             this.cmbCargarPruebas.Location = new System.Drawing.Point(415, 5);
             this.cmbCargarPruebas.Name = "cmbCargarPruebas";
             this.cmbCargarPruebas.Size = new System.Drawing.Size(247, 25);
@@ -575,6 +578,33 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(665, 68);
             this.tableLayoutPanel2.TabIndex = 23;
             // 
+            // txtPasos
+            // 
+            this.txtPasos.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtPasos.BackColor = System.Drawing.SystemColors.Window;
+            this.txtPasos.Enabled = false;
+            this.txtPasos.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPasos.Location = new System.Drawing.Point(594, 33);
+            this.txtPasos.MaxLength = 2;
+            this.txtPasos.Name = "txtPasos";
+            this.txtPasos.ReadOnly = true;
+            this.txtPasos.Size = new System.Drawing.Size(68, 29);
+            this.txtPasos.TabIndex = 26;
+            this.txtPasos.Text = "0";
+            this.txtPasos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(594, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 21);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Pasos:";
+            // 
             // txtEstadoFinal
             // 
             this.txtEstadoFinal.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -696,33 +726,6 @@
             this.richTextBox1.TabIndex = 24;
             this.richTextBox1.Text = "una vez me comi un aventruz pero estaba tan feo que casi vomito hasta el orto, la" +
     " puta madre que lo pario majajaja";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(594, 7);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 21);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "Pasos:";
-            // 
-            // txtPasos
-            // 
-            this.txtPasos.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtPasos.BackColor = System.Drawing.SystemColors.Window;
-            this.txtPasos.Enabled = false;
-            this.txtPasos.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPasos.Location = new System.Drawing.Point(594, 33);
-            this.txtPasos.MaxLength = 2;
-            this.txtPasos.Name = "txtPasos";
-            this.txtPasos.ReadOnly = true;
-            this.txtPasos.Size = new System.Drawing.Size(68, 29);
-            this.txtPasos.TabIndex = 26;
-            this.txtPasos.Text = "0";
-            this.txtPasos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frmSimulador
             // 

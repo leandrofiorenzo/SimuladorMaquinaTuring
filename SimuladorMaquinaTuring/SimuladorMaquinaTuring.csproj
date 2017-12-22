@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ejemplos\0n1n.cs" />
+    <Compile Include="Ejemplos\AntepenultimoEsUn1.cs" />
+    <Compile Include="Ejemplos\TerminaEn1.cs" />
     <Compile Include="Ejemplos\Contiene101.cs" />
     <Compile Include="Modelo\Transicion.cs" />
     <Compile Include="Modelo\Cabezal.cs" />

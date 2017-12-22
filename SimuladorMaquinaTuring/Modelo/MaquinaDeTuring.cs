@@ -71,7 +71,7 @@ namespace SimuladorMaquinaTuring.Modelo
                     if (!puedoMoverme)
                         throw new ArgumentException(string.Format(
                             "No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'." +
-                            "El cabezal no se puede mover más hacia la derecha.", estadoActual, charALeer));
+                            " El cabezal no se puede mover más hacia la derecha.", estadoActual, charALeer));
 
                     return transicionDeLaTabla;
 
@@ -86,7 +86,7 @@ namespace SimuladorMaquinaTuring.Modelo
                     if (!puedoMoverme)
                         throw new ArgumentException(string.Format(
                             "No se encontró una transición válida para el estado '{0}' leyendo el caracter '{1}'." +
-                            "El cabezal no se puede mover más hacia la izquierda.", estadoActual, charALeer));
+                            " El cabezal no se puede mover más hacia la izquierda.", estadoActual, charALeer));
 
                     return transicionDeLaTabla;
                 }
@@ -150,7 +150,7 @@ namespace SimuladorMaquinaTuring.Modelo
 
         public bool HaFinalizado()
         {
-            return EstadoActual.Contains("accept") || EstadoActual.Contains("reject");
+            return EstadoActual.ToUpper().Contains("accept".ToUpper()) || EstadoActual.ToUpper().Contains("reject".ToUpper());
         }
     }
 }

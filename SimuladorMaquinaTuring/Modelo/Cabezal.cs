@@ -31,7 +31,7 @@ namespace SimuladorMaquinaTuring.Modelo
 
         public void Escribir(char caracterAEscribir)
         {
-            if (PosicionDelCabezal >= CintaAProcesar.Count())
+            if (PosicionDelCabezal <= -1 || PosicionDelCabezal >= CintaAProcesar.Count())
                 return;
             CintaAProcesar[PosicionDelCabezal] = caracterAEscribir;
         }
